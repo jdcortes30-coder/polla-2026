@@ -1,0 +1,1455 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Polla Electoral Colombia 2026</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --amarillo: #f5c518;
+        --rojo: #c1121f;
+        --azul: #1b4332;
+        --crema: #fdf8f0;
+        --gris: #6b7280;
+        --sombra: 0 4px 24px rgba(0, 0, 0, 0.1);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--crema);
+        min-height: 100vh;
+        color: #1a1a1a;
+      }
+
+      .flag-bar {
+        display: flex;
+        height: 6px;
+      }
+      .flag-bar .f1 {
+        flex: 1;
+        background: #fcd116;
+      }
+      .flag-bar .f2 {
+        flex: 1;
+        background: #003893;
+      }
+      .flag-bar .f3 {
+        flex: 1;
+        background: #ce1126;
+      }
+
+      .header {
+        background: var(--azul);
+        color: white;
+        padding: 26px 24px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .header::before {
+        content: "";
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        width: 120px;
+        height: 120px;
+        background: var(--amarillo);
+        border-radius: 50%;
+        opacity: 0.12;
+      }
+      .header::after {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 80px;
+        height: 80px;
+        background: var(--rojo);
+        border-radius: 50%;
+        opacity: 0.15;
+      }
+      .header h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.75rem;
+        font-weight: 900;
+        line-height: 1.15;
+        position: relative;
+        z-index: 1;
+      }
+      .header h1 span {
+        color: var(--amarillo);
+      }
+      .header p {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.65);
+        margin-top: 6px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .steps-bar {
+        display: flex;
+        justify-content: center;
+        background: white;
+        border-bottom: 1px solid #eee;
+        padding: 0 8px;
+      }
+      .step-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.76rem;
+        color: #bbb;
+        font-weight: 500;
+        padding: 12px 12px 10px;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s;
+      }
+      .step-item.active {
+        color: var(--azul);
+        border-bottom-color: var(--amarillo);
+      }
+      .step-item.done {
+        color: var(--azul);
+        opacity: 0.55;
+      }
+      .step-num {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #e5e7eb;
+        color: #888;
+        font-size: 0.7rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .step-item.active .step-num {
+        background: var(--amarillo);
+        color: var(--azul);
+      }
+      .step-item.done .step-num {
+        background: var(--azul);
+        color: white;
+      }
+
+      .content {
+        padding: 18px 16px 48px;
+        max-width: 580px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: white;
+        border-radius: 14px;
+        box-shadow: var(--sombra);
+        padding: 20px 18px;
+        margin-bottom: 14px;
+      }
+      .card-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--azul);
+        margin-bottom: 3px;
+      }
+      .card-sub {
+        font-size: 0.78rem;
+        color: var(--gris);
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+
+      label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #374151;
+        display: block;
+        margin-bottom: 4px;
+      }
+      input[type="email"],
+      input[type="text"],
+      input[type="number"],
+      input[type="password"],
+      select {
+        width: 100%;
+        padding: 10px 13px;
+        border: 1.5px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-family: "DM Sans", sans-serif;
+        background: var(--crema);
+        color: #1a1a1a;
+        transition: border-color 0.2s;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--azul);
+        background: white;
+      }
+      .input-group {
+        margin-bottom: 14px;
+      }
+
+      .rank-row {
+        display: grid;
+        grid-template-columns: 36px 1fr;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 9px;
+      }
+      .rank-badge {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--azul);
+        color: white;
+        font-weight: 700;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .rank-badge.gold {
+        background: #c9a227;
+      }
+      .rank-badge.silver {
+        background: #8e9eab;
+      }
+      .rank-badge.bronze {
+        background: #a0695a;
+      }
+
+      .pct-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 9px 12px;
+        background: var(--crema);
+        border-radius: 8px;
+      }
+      .pct-name {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #374151;
+      }
+      .pct-input-wrap {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .pct-input-wrap input {
+        width: 70px;
+        text-align: center;
+        padding: 8px 5px;
+      }
+      .pct-input-wrap span {
+        font-size: 0.82rem;
+        color: var(--gris);
+        font-weight: 600;
+      }
+
+      .info-box {
+        background: #eff6ff;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 8px 8px 0;
+        padding: 9px 13px;
+        font-size: 0.78rem;
+        color: #1d4ed8;
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+      .warn-box {
+        background: #fffbeb;
+        border-left: 4px solid var(--amarillo);
+        border-radius: 0 8px 8px 0;
+        padding: 9px 13px;
+        font-size: 0.78rem;
+        color: #92400e;
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+      .success-box {
+        background: #f0fdf4;
+        border-left: 4px solid #22c55e;
+        border-radius: 0 8px 8px 0;
+        padding: 9px 13px;
+        font-size: 0.78rem;
+        color: #15803d;
+        margin-bottom: 14px;
+        line-height: 1.4;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        border-radius: 10px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.93rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .btn-primary {
+        background: var(--azul);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: #163e2d;
+        transform: translateY(-1px);
+      }
+      .btn-secondary {
+        background: var(--amarillo);
+        color: var(--azul);
+        margin-bottom: 10px;
+      }
+      .btn-secondary:hover {
+        background: #deb000;
+      }
+      .btn-whatsapp {
+        background: #25d366;
+        color: white;
+        margin-bottom: 10px;
+      }
+      .btn-whatsapp:hover {
+        background: #1cb858;
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--azul);
+        border: 2px solid var(--azul);
+        margin-bottom: 10px;
+      }
+      .btn-outline:hover {
+        background: var(--azul);
+        color: white;
+      }
+      .btn-danger {
+        background: var(--rojo);
+        color: white;
+      }
+
+      .divider {
+        height: 1px;
+        background: #f0f0f0;
+        margin: 14px 0;
+      }
+
+      /* RESUMEN */
+      .resumen-wrap {
+        background: white;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: var(--sombra);
+        margin-bottom: 14px;
+      }
+      .resumen-header {
+        background: var(--azul);
+        color: white;
+        padding: 18px 20px;
+      }
+      .resumen-header h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+      }
+      .resumen-header p {
+        font-size: 0.74rem;
+        color: rgba(255, 255, 255, 0.65);
+        margin-top: 2px;
+      }
+      .resumen-header .fecha {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 4px;
+      }
+      .resumen-section {
+        padding: 14px 18px;
+      }
+      .resumen-section h3 {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--gris);
+        margin-bottom: 10px;
+      }
+      .resumen-row {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 7px;
+        font-size: 0.83rem;
+      }
+      .resumen-pos {
+        min-width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--azul);
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .resumen-name {
+        flex: 1;
+        font-weight: 500;
+      }
+      .resumen-pct {
+        color: var(--rojo);
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+      .resumen-divider {
+        height: 1px;
+        background: #f3f3f3;
+        margin: 10px 0;
+      }
+
+      /* SCORE TABLE */
+      .score-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.84rem;
+      }
+      .score-table th {
+        background: var(--azul);
+        color: white;
+        padding: 9px 12px;
+        text-align: left;
+        font-size: 0.76rem;
+        font-weight: 600;
+      }
+      .score-table td {
+        padding: 9px 12px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .score-table .pts {
+        font-weight: 700;
+        color: var(--azul);
+        text-align: right;
+      }
+      .score-table tr.top td {
+        background: #fffbeb;
+      }
+      .medal {
+        font-size: 1rem;
+      }
+
+      .admin-link {
+        text-align: center;
+        padding: 16px 16px 0;
+        font-size: 0.78rem;
+        color: var(--gris);
+      }
+      .admin-link a {
+        color: var(--azul);
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      .error-msg {
+        color: var(--rojo);
+        font-size: 0.76rem;
+        margin-top: 4px;
+        display: none;
+      }
+
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 24px;
+        color: var(--gris);
+        font-size: 0.88rem;
+      }
+      .spinner {
+        width: 28px;
+        height: 28px;
+        border: 3px solid #e5e7eb;
+        border-top-color: var(--azul);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin: 0 auto 10px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(16px);
+        background: #1a1a1a;
+        color: white;
+        padding: 9px 20px;
+        border-radius: 24px;
+        font-size: 0.83rem;
+        opacity: 0;
+        transition: all 0.3s;
+        z-index: 9999;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      @media print {
+        .steps-bar,
+        .btn,
+        .admin-link,
+        .warn-box,
+        .toast {
+          display: none !important;
+        }
+        .resumen-wrap {
+          box-shadow: none;
+          border: 1px solid #eee;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flag-bar">
+      <div class="f1"></div>
+      <div class="f2"></div>
+      <div class="f3"></div>
+    </div>
+    <div class="header">
+      <h1>Polla <span>Electoral</span><br />Colombia 2026</h1>
+      <p>Cierre de predicciones: 30 de mayo · Familia &amp; Amigos</p>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== PANTALLA 0: EMAIL ===== -->
+    <div class="screen active" id="screen-email">
+      <div class="content">
+        <div class="card">
+          <div class="card-title">¡Bienvenido! 🇨🇴</div>
+          <div class="card-sub">
+            Registra tu predicción antes del 30 de mayo. Tu correo se usará para
+            identificarte en el ranking final.
+          </div>
+          <div class="input-group">
+            <label for="inp-nombre">Tu nombre o apodo</label>
+            <input
+              type="text"
+              id="inp-nombre"
+              placeholder="Como quieres aparecer en el ranking"
+            />
+            <div class="error-msg" id="err-nombre">Ingresa tu nombre.</div>
+          </div>
+          <div class="input-group">
+            <label for="inp-email">Correo electrónico</label>
+            <input
+              type="email"
+              id="inp-email"
+              placeholder="tucorreo@gmail.com"
+            />
+            <div class="error-msg" id="err-email">
+              Ingresa un correo válido.
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="goV1()">Comenzar →</button>
+        </div>
+        <div class="admin-link">
+          <a onclick="showScreen('screen-admin')"
+            >Soy el organizador — ingresar resultados finales</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PANTALLA 1: PRIMERA VUELTA ===== -->
+    <div class="screen" id="screen-v1">
+      <div class="steps-bar">
+        <div class="step-item done">
+          <div class="step-num">✓</div>
+          Datos
+        </div>
+        <div class="step-item active">
+          <div class="step-num">2</div>
+          1ª Vuelta
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          2ª Vuelta
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          Resumen
+        </div>
+      </div>
+      <div class="content">
+        <div class="card">
+          <div class="card-title">🗳️ Primera Vuelta — Orden</div>
+          <div class="card-sub">
+            ¿Cuáles 5 candidatos quedarán primero y en qué orden?
+          </div>
+          <div class="info-box">
+            🏆 <strong>10 pts</strong> si aciertas el orden de los 5 ·
+            <strong>10 pts extra</strong> si aciertas quién queda en 5° lugar
+          </div>
+          <div id="v1-selects"></div>
+          <div class="error-msg" id="err-v1-orden">
+            Selecciona 5 candidatos diferentes.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">📊 Primera Vuelta — % de Votos</div>
+          <div class="card-sub">
+            ¿Qué porcentaje obtendrá cada candidato? (un decimal, ej: 34,3)
+          </div>
+          <div class="info-box">
+            🎯 Los 4 jugadores más cercanos ganan
+            <strong>20 · 15 · 10 · 5 pts</strong>
+          </div>
+          <div id="v1-pcts"></div>
+        </div>
+        <button class="btn btn-primary" onclick="goV2()">
+          Continuar a 2ª Vuelta →
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== PANTALLA 2: SEGUNDA VUELTA ===== -->
+    <div class="screen" id="screen-v2">
+      <div class="steps-bar">
+        <div class="step-item done">
+          <div class="step-num">✓</div>
+          Datos
+        </div>
+        <div class="step-item done">
+          <div class="step-num">✓</div>
+          1ª Vuelta
+        </div>
+        <div class="step-item active">
+          <div class="step-num">3</div>
+          2ª Vuelta
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          Resumen
+        </div>
+      </div>
+      <div class="content">
+        <div class="card">
+          <div class="card-title">🏆 Segunda Vuelta — Orden</div>
+          <div class="card-sub">
+            Los finalistas son los que pusiste en 1° y 2° lugar. ¿Quién gana la
+            segunda vuelta?
+          </div>
+          <div class="info-box">
+            🏆 <strong>10 pts</strong> por acertar el orden correcto de los 2
+            finalistas
+          </div>
+          <div id="v2-selects"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">📊 Segunda Vuelta — % de Votos</div>
+          <div class="card-sub">
+            ¿Qué porcentaje obtendrá cada finalista en segunda vuelta?
+          </div>
+          <div class="info-box">
+            🎯 Los 4 jugadores más cercanos ganan
+            <strong>20 · 15 · 10 · 5 pts</strong>
+          </div>
+          <div id="v2-pcts"></div>
+        </div>
+        <button class="btn btn-primary" onclick="goResumen()">
+          Ver mi predicción →
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== PANTALLA 3: RESUMEN ===== -->
+    <div class="screen" id="screen-resumen">
+      <div class="steps-bar">
+        <div class="step-item done">
+          <div class="step-num">✓</div>
+          Datos
+        </div>
+        <div class="step-item done">
+          <div class="step-num">✓</div>
+          1ª Vuelta
+        </div>
+        <div class="step-item done">
+          <div class="step-num">✓</div>
+          2ª Vuelta
+        </div>
+        <div class="step-item active">
+          <div class="step-num">4</div>
+          Resumen
+        </div>
+      </div>
+      <div class="content">
+        <div class="warn-box">
+          📸 <strong>Toma captura de pantalla</strong> de esta página — es tu
+          comprobante de participación.
+        </div>
+        <div class="resumen-wrap" id="resumen-card">
+          <div class="resumen-header">
+            <h2 id="res-nombre"></h2>
+            <p id="res-email"></p>
+            <div class="fecha" id="res-fecha"></div>
+          </div>
+          <div class="resumen-section">
+            <h3>🗳️ Primera Vuelta — Orden de candidatos</h3>
+            <div id="res-v1-orden"></div>
+            <div class="resumen-divider"></div>
+            <h3>📊 Primera Vuelta — Porcentaje de votos</h3>
+            <div id="res-v1-pct"></div>
+          </div>
+          <div style="height: 1px; background: #f0f0f0; margin: 0 18px"></div>
+          <div class="resumen-section">
+            <h3>🏆 Segunda Vuelta — Orden de candidatos</h3>
+            <div id="res-v2-orden"></div>
+            <div class="resumen-divider"></div>
+            <h3>📊 Segunda Vuelta — Porcentaje de votos</h3>
+            <div id="res-v2-pct"></div>
+          </div>
+        </div>
+        <button class="btn btn-whatsapp" onclick="shareWA()">
+          📲 Compartir por WhatsApp
+        </button>
+        <button class="btn btn-secondary" onclick="window.print()">
+          🖨️ Imprimir / Guardar PDF
+        </button>
+        <div id="save-status" class="loading" style="display: none">
+          <div class="spinner"></div>
+          Guardando predicción...
+        </div>
+        <div id="save-ok" style="display: none" class="success-box">
+          ✅ ¡Predicción guardada! Recuerda tomar captura de pantalla.
+        </div>
+        <div id="save-err" style="display: none" class="warn-box">
+          ⚠️ No se pudo guardar automáticamente. Guarda tu captura de pantalla
+          como respaldo.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PANTALLA ADMIN: LOGIN ===== -->
+    <div class="screen" id="screen-admin">
+      <div class="content">
+        <div class="card">
+          <div class="card-title">🔐 Panel Organizador</div>
+          <div class="card-sub">
+            Solo para quien maneja la polla. Ingresa la contraseña para
+            continuar.
+          </div>
+          <div class="input-group">
+            <label>Contraseña</label>
+            <input type="password" id="admin-pass" placeholder="Contraseña" />
+            <div class="error-msg" id="err-admin-pass">
+              Contraseña incorrecta.
+            </div>
+          </div>
+          <button
+            class="btn btn-primary"
+            onclick="checkAdmin()"
+            style="margin-bottom: 10px"
+          >
+            Ingresar
+          </button>
+          <button class="btn btn-outline" onclick="showScreen('screen-email')">
+            ← Volver
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PANTALLA ADMIN: RESULTADOS ===== -->
+    <div class="screen" id="screen-admin-results">
+      <div class="content">
+        <div class="card">
+          <div class="card-title">📥 Resultados Reales — 1ª Vuelta</div>
+          <div class="card-sub">
+            Ingresa el orden real y porcentajes exactos de la primera vuelta.
+          </div>
+          <div
+            style="
+              font-size: 0.8rem;
+              font-weight: 600;
+              color: #374151;
+              margin-bottom: 8px;
+            "
+          >
+            Orden de los 5 primeros
+          </div>
+          <div id="admin-v1-orden"></div>
+          <div class="divider"></div>
+          <div
+            style="
+              font-size: 0.8rem;
+              font-weight: 600;
+              color: #374151;
+              margin-bottom: 8px;
+            "
+          >
+            % de votos reales (mismo orden)
+          </div>
+          <div id="admin-v1-pct"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">📥 Resultados Reales — 2ª Vuelta</div>
+          <div class="card-sub">
+            Ingresa el orden y porcentajes de la segunda vuelta.
+          </div>
+          <div
+            style="
+              font-size: 0.8rem;
+              font-weight: 600;
+              color: #374151;
+              margin-bottom: 8px;
+            "
+          >
+            Orden de los 2 finalistas
+          </div>
+          <div id="admin-v2-orden"></div>
+          <div class="divider"></div>
+          <div
+            style="
+              font-size: 0.8rem;
+              font-weight: 600;
+              color: #374151;
+              margin-bottom: 8px;
+            "
+          >
+            % de votos reales
+          </div>
+          <div id="admin-v2-pct"></div>
+        </div>
+        <button
+          class="btn btn-primary"
+          onclick="calcularPuntajes()"
+          style="margin-bottom: 10px"
+        >
+          Calcular Puntajes →
+        </button>
+        <button class="btn btn-outline" onclick="showScreen('screen-admin')">
+          ← Volver
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== PANTALLA RESULTADOS FINALES ===== -->
+    <div class="screen" id="screen-results">
+      <div class="content">
+        <div class="card">
+          <div class="card-title">🏆 Tabla de Puntajes Finales</div>
+          <div class="card-sub" id="results-sub"></div>
+          <div id="tabla-puntajes"></div>
+        </div>
+        <button
+          class="btn btn-secondary"
+          onclick="window.print()"
+          style="margin-bottom: 10px"
+        >
+          🖨️ Imprimir ranking
+        </button>
+        <button
+          class="btn btn-outline"
+          onclick="showScreen('screen-admin-results')"
+        >
+          ← Volver a resultados
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // =========================================================
+      // CONFIGURACIÓN — EDITAR AQUÍ
+      // =========================================================
+      const SHEETS_URL =
+        "https://script.google.com/macros/s/AKfycbyvEtd_DLvsMVyZuOWcyB_10mCQxS6qfl0YhXKqo2kdvaGhOTlAaZa9q14IyIblcSNkhg/exec"; // Pega aquí la URL de tu Google Apps Script Web App
+      const ADMIN_PASS = "polla2026"; // Cambia esta contraseña
+      // =========================================================
+
+      const CANDIDATOS = [
+        "IVÁN CEPEDA CASTRO",
+        "CLAUDIA LÓPEZ",
+        "RAÚL SANTIAGO BOTERO JARAMILLO",
+        "ABELARDO DE LA ESPRIELLA",
+        "ÓSCAR MAURICIO LIZCANO ARANGO",
+        "MIGUEL URIBE LONDOÑO",
+        "SONDRA MACOLLINS GARVIN PINTO",
+        "ROY LEONARDO BARRERAS MONTEALEGRE",
+        "CARLOS EDUARDO CAICEDO OMAR",
+        "GUSTAVO MATAMOROS CAMACHO",
+        "PALOMA VALENCIA LASERNA",
+        "SERGIO FAJARDO",
+        "EDNA CRISTINA DEL FAJARDO VALDERRAMA",
+        "LUIS GILBERTO MURILLO URRUTIA",
+        "VOTO EN BLANCO",
+      ];
+
+      let user = {};
+      let v1S = [],
+        v1P = [],
+        v2S = [],
+        v2P = [];
+
+      // ---- UTILS ----
+      function showScreen(id) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        window.scrollTo(0, 0);
+      }
+      function toast(msg, ms = 3200) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), ms);
+      }
+      function makeSelect(placeholder, list, onChange) {
+        const sel = document.createElement("select");
+        sel.innerHTML = `<option value="" disabled selected>${placeholder}</option>`;
+        list.forEach((c) => {
+          const o = document.createElement("option");
+          o.value = c;
+          o.textContent = c;
+          sel.appendChild(o);
+        });
+        if (onChange) sel.addEventListener("change", onChange);
+        return sel;
+      }
+      function makePctRow(label, inputArr) {
+        const row = document.createElement("div");
+        row.className = "pct-row";
+        const nameEl = document.createElement("div");
+        nameEl.className = "pct-name";
+        nameEl.textContent = label;
+        const wrap = document.createElement("div");
+        wrap.className = "pct-input-wrap";
+
+        // Text input that enforces exactly 3 digits -> interpreted as DD.D
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.inputMode = "numeric";
+        inp.maxLength = 3;
+        inp.placeholder = "343";
+        inp.style.width = "60px";
+        inp.style.textAlign = "center";
+        inp.style.letterSpacing = "3px";
+        inp.style.fontWeight = "600";
+
+        // Only allow digits, max 3, and auto-insert comma after 2nd digit
+        inp.addEventListener("input", (e) => {
+          // Strip everything that's not a digit or comma
+          let digits = inp.value.replace(/[^\d]/g, "").slice(0, 3);
+          // Display with comma: "33" -> "33", "333" -> "33,3"
+          if (digits.length <= 2) {
+            inp.value = digits;
+          } else {
+            inp.value = digits.slice(0, 2) + "," + digits.slice(2);
+          }
+        });
+
+        // Parse: "33,3" -> 33.3, "05,5" -> 5.5
+        inp._getPct = () => {
+          const digits = inp.value.replace(/[^\d]/g, "").padStart(3, "0");
+          return parseFloat(digits.slice(0, 2) + "." + digits.slice(2));
+        };
+        inp._isValid = () => inp.value.replace(/[^\d]/g, "").length === 3;
+
+        const pct = document.createElement("span");
+        pct.textContent = "%";
+        wrap.appendChild(inp);
+        wrap.appendChild(pct);
+        row.appendChild(nameEl);
+        row.appendChild(wrap);
+        inputArr.push({ input: inp, nameEl });
+        return row;
+      }
+
+      // ---- STEP 0 ----
+      function goV1() {
+        const nombre = document.getElementById("inp-nombre").value.trim();
+        const email = document.getElementById("inp-email").value.trim();
+        let ok = true;
+        if (!nombre) {
+          document.getElementById("err-nombre").style.display = "block";
+          ok = false;
+        } else document.getElementById("err-nombre").style.display = "none";
+        if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+          document.getElementById("err-email").style.display = "block";
+          ok = false;
+        } else document.getElementById("err-email").style.display = "none";
+        if (!ok) return;
+        user = { nombre, email };
+        buildV1();
+        showScreen("screen-v1");
+      }
+
+      // ---- STEP 1 ----
+      function buildV1() {
+        v1S = [];
+        v1P = [];
+        const selCont = document.getElementById("v1-selects");
+        selCont.innerHTML = "";
+        const medals = ["🥇", "🥈", "🥉", "4°", "5°"];
+        const badgeClass = ["gold", "silver", "bronze", "", ""];
+        for (let i = 0; i < 5; i++) {
+          const row = document.createElement("div");
+          row.className = "rank-row";
+          const badge = document.createElement("div");
+          badge.className = "rank-badge " + (badgeClass[i] || "");
+          badge.textContent = medals[i];
+          const sel = makeSelect(
+            `— Candidato ${i + 1}° —`,
+            CANDIDATOS,
+            updateV1,
+          );
+          v1S.push(sel);
+          row.appendChild(badge);
+          row.appendChild(sel);
+          selCont.appendChild(row);
+        }
+        const pctCont = document.getElementById("v1-pcts");
+        pctCont.innerHTML = "";
+        for (let i = 0; i < 5; i++) {
+          pctCont.appendChild(makePctRow(`Candidato ${i + 1}°`, v1P));
+        }
+      }
+
+      function updateV1() {
+        const vals = v1S.map((s) => s.value);
+        // update pct labels
+        vals.forEach((v, i) => {
+          if (v1P[i]) v1P[i].nameEl.textContent = v || `Candidato ${i + 1}°`;
+        });
+        // disable duplicates
+        const used = vals.filter(Boolean);
+        v1S.forEach((sel) => {
+          Array.from(sel.options).forEach((opt) => {
+            if (
+              opt.value &&
+              used.includes(opt.value) &&
+              opt.value !== sel.value
+            )
+              opt.disabled = true;
+            else opt.disabled = false;
+          });
+        });
+      }
+
+      function goV2() {
+        const vals = v1S.map((s) => s.value);
+        if (vals.some((v) => !v) || new Set(vals).size !== 5) {
+          document.getElementById("err-v1-orden").style.display = "block";
+          return;
+        }
+        document.getElementById("err-v1-orden").style.display = "none";
+        for (let i = 0; i < v1P.length; i++) {
+          if (!v1P[i].input._isValid()) {
+            toast(
+              "⚠️ Ingresa exactamente 3 dígitos en cada % (ej: 343 = 34.3%)",
+            );
+            v1P[i].input.focus();
+            return;
+          }
+        }
+        buildV2(vals[0], vals[1]);
+        showScreen("screen-v2");
+      }
+
+      // ---- STEP 2 ----
+      function buildV2(c1, c2) {
+        v2S = [];
+        v2P = [];
+        const candidates = [c1, c2];
+        const selCont = document.getElementById("v2-selects");
+        selCont.innerHTML = "";
+        ["🥇", "🥈"].forEach((m, i) => {
+          const row = document.createElement("div");
+          row.className = "rank-row";
+          const badge = document.createElement("div");
+          badge.className = "rank-badge " + (i === 0 ? "gold" : "silver");
+          badge.textContent = m;
+          const sel = makeSelect(
+            `— ${i === 0 ? "Ganador" : "Segundo"} —`,
+            candidates,
+            updateV2,
+          );
+          v2S.push(sel);
+          row.appendChild(badge);
+          row.appendChild(sel);
+          selCont.appendChild(row);
+        });
+        const pctCont = document.getElementById("v2-pcts");
+        pctCont.innerHTML = "";
+        // Build pct rows mapped by candidate name so we can reorder on selection change
+        candidates.forEach((c, i) => pctCont.appendChild(makePctRow(c, v2P)));
+        // Reorder pct rows whenever selection changes
+        updateV2PctOrder();
+      }
+
+      function updateV2PctOrder() {
+        const pctCont = document.getElementById("v2-pcts");
+        const orderedNames = v2S.map((s) => s.value).filter(Boolean);
+        if (orderedNames.length === 2) {
+          // Reorder rows in pctCont to match v2S selection order
+          const rows = Array.from(pctCont.children);
+          orderedNames.forEach((name, i) => {
+            // Find the v2P entry with this name and update its label
+            const entry = v2P.find(
+              (p) =>
+                p.nameEl.textContent === name ||
+                rows.indexOf(p.input.closest(".pct-row")) === i,
+            );
+            if (v2P[i]) v2P[i].nameEl.textContent = name;
+          });
+        }
+      }
+
+      function updateV2() {
+        const used = v2S.map((s) => s.value).filter(Boolean);
+        v2S.forEach((sel) => {
+          Array.from(sel.options).forEach((opt) => {
+            opt.disabled =
+              opt.value && used.includes(opt.value) && opt.value !== sel.value;
+          });
+        });
+        updateV2PctOrder();
+      }
+
+      function goResumen() {
+        const vals2 = v2S.map((s) => s.value);
+        if (vals2.some((v) => !v)) {
+          toast("⚠️ Selecciona el orden de 2ª vuelta");
+          return;
+        }
+        for (let i = 0; i < v2P.length; i++) {
+          if (!v2P[i].input._isValid()) {
+            toast(
+              "⚠️ Ingresa exactamente 3 dígitos en cada % (ej: 055 = 5.5%)",
+            );
+            return;
+          }
+        }
+        buildResumen();
+        showScreen("screen-resumen");
+        saveData();
+      }
+
+      // ---- RESUMEN ----
+      function buildResumen() {
+        document.getElementById("res-nombre").textContent = "👤 " + user.nombre;
+        document.getElementById("res-email").textContent = user.email;
+        document.getElementById("res-fecha").textContent =
+          "Predicción: " + new Date().toLocaleString("es-CO");
+
+        function fillOrden(containerId, selArr) {
+          const c = document.getElementById(containerId);
+          c.innerHTML = "";
+          selArr.forEach((s, i) => {
+            const row = document.createElement("div");
+            row.className = "resumen-row";
+            row.innerHTML = `<div class="resumen-pos">${i + 1}</div><div class="resumen-name">${s.value}</div>`;
+            c.appendChild(row);
+          });
+        }
+        function fillPct(containerId, selArr, pctArr) {
+          const c = document.getElementById(containerId);
+          c.innerHTML = "";
+          selArr.forEach((s, i) => {
+            const row = document.createElement("div");
+            row.className = "resumen-row";
+            row.innerHTML = `<div class="resumen-pos">${i + 1}</div><div class="resumen-name">${s.value}</div><div class="resumen-pct">${pctArr[i].input._getPct().toFixed(1)}%</div>`;
+            c.appendChild(row);
+          });
+        }
+        fillOrden("res-v1-orden", v1S);
+        fillPct("res-v1-pct", v1S, v1P);
+        fillOrden("res-v2-orden", v2S);
+        fillPct("res-v2-pct", v2S, v2P);
+      }
+
+      function shareWA() {
+        const v1 = v1S
+          .map(
+            (s, i) =>
+              `${i + 1}° ${s.value} (${v1P[i].input._getPct().toFixed(1)}%)`,
+          )
+          .join("\n");
+        const v2 = v2S
+          .map(
+            (s, i) =>
+              `${i + 1}° ${s.value} (${v2P[i].input._getPct().toFixed(1)}%)`,
+          )
+          .join("\n");
+        const msg = encodeURIComponent(
+          `🗳️ *Mi Polla Electoral Colombia 2026*\n👤 ${user.nombre}\n\n*🗳️ 1ª Vuelta:*\n${v1}\n\n*🏆 2ª Vuelta:*\n${v2}\n\n¡Que gane el mejor! 🇨🇴`,
+        );
+        window.open(`https://wa.me/?text=${msg}`, "_blank");
+      }
+
+      // ---- SAVE ----
+      async function saveData() {
+        if (!SHEETS_URL) {
+          document.getElementById("save-ok").style.display = "block";
+          return;
+        }
+        document.getElementById("save-status").style.display = "block";
+        const payload = {
+          action: "save",
+          nombre: user.nombre,
+          email: user.email,
+          v1_orden: v1S.map((s) => s.value),
+          v1_pct: v1P.map((p) => p.input._getPct()),
+          v2_orden: v2S.map((s) => s.value),
+          v2_pct: v2P.map((p) => p.input._getPct()),
+          timestamp: new Date().toISOString(),
+        };
+        try {
+          await fetch(SHEETS_URL, {
+            method: "POST",
+            body: JSON.stringify(payload),
+          });
+          document.getElementById("save-status").style.display = "none";
+          document.getElementById("save-ok").style.display = "block";
+        } catch (e) {
+          document.getElementById("save-status").style.display = "none";
+          document.getElementById("save-err").style.display = "block";
+        }
+      }
+
+      // ---- ADMIN ----
+      function checkAdmin() {
+        if (document.getElementById("admin-pass").value !== ADMIN_PASS) {
+          document.getElementById("err-admin-pass").style.display = "block";
+          return;
+        }
+        document.getElementById("err-admin-pass").style.display = "none";
+        buildAdminPanels();
+        showScreen("screen-admin-results");
+      }
+
+      function buildAdminPanels() {
+        // V1 orden
+        const c1 = document.getElementById("admin-v1-orden");
+        c1.innerHTML = "";
+        for (let i = 0; i < 5; i++) {
+          const row = document.createElement("div");
+          row.className = "rank-row";
+          row.style.marginBottom = "8px";
+          const badge = document.createElement("div");
+          badge.className = "rank-badge";
+          badge.textContent = `${i + 1}°`;
+          const sel = makeSelect(`— Candidato ${i + 1}° real —`, CANDIDATOS);
+          sel.id = `adm-v1-s-${i}`;
+          row.appendChild(badge);
+          row.appendChild(sel);
+          c1.appendChild(row);
+        }
+        // V1 pct
+        const c2 = document.getElementById("admin-v1-pct");
+        c2.innerHTML = "";
+        for (let i = 0; i < 5; i++) {
+          const row = document.createElement("div");
+          row.className = "pct-row";
+          row.innerHTML = `<div class="pct-name">Candidato ${i + 1}°</div><div class="pct-input-wrap"><input id="adm-v1-p-${i}" type="number" min="0" max="100" step="0.1" placeholder="0.0" style="width:70px;text-align:center"><span>%</span></div>`;
+          c2.appendChild(row);
+        }
+        // V2 orden
+        const c3 = document.getElementById("admin-v2-orden");
+        c3.innerHTML = "";
+        for (let i = 0; i < 2; i++) {
+          const row = document.createElement("div");
+          row.className = "rank-row";
+          row.style.marginBottom = "8px";
+          const badge = document.createElement("div");
+          badge.className = "rank-badge " + (i === 0 ? "gold" : "silver");
+          badge.textContent = `${i + 1}°`;
+          const sel = makeSelect(`— Finalista ${i + 1}° real —`, CANDIDATOS);
+          sel.id = `adm-v2-s-${i}`;
+          row.appendChild(badge);
+          row.appendChild(sel);
+          c3.appendChild(row);
+        }
+        // V2 pct
+        const c4 = document.getElementById("admin-v2-pct");
+        c4.innerHTML = "";
+        for (let i = 0; i < 2; i++) {
+          const row = document.createElement("div");
+          row.className = "pct-row";
+          row.innerHTML = `<div class="pct-name">Finalista ${i + 1}°</div><div class="pct-input-wrap"><input id="adm-v2-p-${i}" type="number" min="0" max="100" step="0.1" placeholder="0.0" style="width:70px;text-align:center"><span>%</span></div>`;
+          c4.appendChild(row);
+        }
+      }
+
+      async function calcularPuntajes() {
+        // Leer resultados reales
+        const rv1o = [],
+          rv1p = [],
+          rv2o = [],
+          rv2p = [];
+        for (let i = 0; i < 5; i++) {
+          const v = document.getElementById(`adm-v1-s-${i}`)?.value;
+          if (!v) {
+            toast("⚠️ Completa el orden real de 1ª vuelta");
+            return;
+          }
+          rv1o.push(v);
+        }
+        for (let i = 0; i < 5; i++) {
+          const v = document.getElementById(`adm-v1-p-${i}`)?.value;
+          if (v === "" || isNaN(parseFloat(v))) {
+            toast("⚠️ Completa los % reales de 1ª vuelta");
+            return;
+          }
+          rv1p.push(parseFloat(v));
+        }
+        for (let i = 0; i < 2; i++) {
+          const v = document.getElementById(`adm-v2-s-${i}`)?.value;
+          if (!v) {
+            toast("⚠️ Completa el orden real de 2ª vuelta");
+            return;
+          }
+          rv2o.push(v);
+        }
+        for (let i = 0; i < 2; i++) {
+          const v = document.getElementById(`adm-v2-p-${i}`)?.value;
+          if (v === "" || isNaN(parseFloat(v))) {
+            toast("⚠️ Completa los % reales de 2ª vuelta");
+            return;
+          }
+          rv2p.push(parseFloat(v));
+        }
+
+        let responses = [];
+        if (SHEETS_URL) {
+          try {
+            const r = await fetch(SHEETS_URL + "?action=getAll");
+            const data = await r.json();
+            responses = data.responses || [];
+          } catch (e) {
+            toast("⚠️ No se pudieron cargar respuestas del servidor");
+          }
+        }
+
+        if (!responses.length) {
+          document.getElementById("results-sub").textContent =
+            "No hay respuestas guardadas en el servidor. Conecta Google Sheets para ver el ranking completo.";
+          document.getElementById("tabla-puntajes").innerHTML =
+            '<div style="text-align:center;padding:24px;color:#aaa;font-size:0.88rem">Una vez conectado Google Sheets, aquí aparecerá el ranking completo con los puntajes de todos los participantes.</div>';
+          showScreen("screen-results");
+          return;
+        }
+
+        // Calcular puntajes
+        const realV1PctTotal = rv1p.reduce((a, b) => a + b, 0);
+        const realV2PctTotal = rv2p.reduce((a, b) => a + b, 0);
+
+        const scored = responses.map((r) => {
+          let pts = 0,
+            breakdown = [];
+          const uv1o = r.v1_orden || [];
+          const uv1p = r.v1_pct || [];
+          const uv2o = r.v2_orden || [];
+          const uv2p = r.v2_pct || [];
+
+          // V1 orden completo
+          if (uv1o.length === 5 && uv1o.every((c, i) => c === rv1o[i])) {
+            pts += 10;
+            breakdown.push("Orden 1V: +10");
+          }
+          // V1 quinto lugar
+          if (uv1o[4] && uv1o[4] === rv1o[4]) {
+            pts += 10;
+            breakdown.push("5° lugar: +10");
+          }
+          // V2 orden
+          if (uv2o.length === 2 && uv2o[0] === rv2o[0] && uv2o[1] === rv2o[1]) {
+            pts += 10;
+            breakdown.push("Orden 2V: +10");
+          }
+
+          // Pct errors (suma de candidatos)
+          const v1PctErr = Math.abs(
+            uv1p.reduce((a, b) => a + b, 0) - realV1PctTotal,
+          );
+          const v2PctErr = Math.abs(
+            uv2p.reduce((a, b) => a + b, 0) - realV2PctTotal,
+          );
+
+          return { ...r, pts, v1PctErr, v2PctErr, breakdown };
+        });
+
+        // Top 4 V1 pct
+        const byV1 = [...scored].sort((a, b) => a.v1PctErr - b.v1PctErr);
+        [20, 15, 10, 5].forEach((p, i) => {
+          if (byV1[i]) {
+            byV1[i].pts += p;
+            byV1[i].breakdown.push(`%1V top${i + 1}: +${p}`);
+          }
+        });
+        // Top 4 V2 pct
+        const byV2 = [...scored].sort((a, b) => a.v2PctErr - b.v2PctErr);
+        [20, 15, 10, 5].forEach((p, i) => {
+          if (byV2[i]) {
+            byV2[i].pts += p;
+            byV2[i].breakdown.push(`%2V top${i + 1}: +${p}`);
+          }
+        });
+
+        scored.sort((a, b) => b.pts - a.pts);
+
+        const medals = ["🥇", "🥈", "🥉"];
+        document.getElementById("results-sub").textContent =
+          `${scored.length} participantes · Ranking final`;
+        document.getElementById("tabla-puntajes").innerHTML = `
+    <table class="score-table">
+      <thead><tr><th>#</th><th>Participante</th><th style="text-align:right">Puntos</th></tr></thead>
+      <tbody>
+        ${scored
+          .map(
+            (r, i) => `
+          <tr class="${i < 3 ? "top" : ""}">
+            <td><span class="medal">${medals[i] || ""}</span> ${i + 1}</td>
+            <td>${r.nombre || r.email}</td>
+            <td class="pts">${r.pts}</td>
+          </tr>`,
+          )
+          .join("")}
+      </tbody>
+    </table>`;
+        showScreen("screen-results");
+      }
+    </script>
+  </body>
+</html>
